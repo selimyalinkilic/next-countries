@@ -1,5 +1,5 @@
 import instance from '../services/axios'
-const path = process.env.API_URL
+const path = process.env.NEXT_PUBLIC_API_URL
 
 class Country {
   static async all() {
