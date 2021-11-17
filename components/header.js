@@ -8,7 +8,7 @@ const Header = () => {
   const { colorMode, toggleColorMode } = useColorMode()
   return (
     <Flex
-      height={[12, 16, 24]}
+      height={[16, 18, 24]}
       boxShadow="sm"
       justifyContent="space-between"
       alignItems="center"
