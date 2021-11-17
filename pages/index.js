@@ -1,22 +1,29 @@
-import { Container, Flex, Grid } from '@chakra-ui/layout'
-import { Spinner } from '@chakra-ui/spinner'
+import { Box, Container, Flex, Grid } from '@chakra-ui/layout'
 import axios from 'axios'
-import { useCallback, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import Card from '../components/card'
 import Layout from '../components/layout'
+import PageLoader from '../components/pageLoader'
 import SearchBar from '../components/searchBar'
+import SearchSorting from '../components/searchSorting'
 import Country from '../model/country'
 
 const Home = ({ countries }) => {
   const [search, setSearch] = useState('')
+  const [sorting, setSorting] = useState('')
   const [data, setData] = useState([])
   const [loading, setLoading] = useState(false)
+
   const handleSearchChange = (val) => {
     if (val.length >= 3) setSearch(val)
     else {
       setSearch('')
       setData(countries)
     }
+  }
+
+  const handleSortingChange = (val) => {
+    setSorting(val)
   }
 
   const searchByName = async (val) => {
@@ -31,21 +38,52 @@ const Home = ({ countries }) => {
       })
   }
 
+  const filterByRegion = async (region) => {
+    return await axios
+      .get(`${process.env.NEXT_PUBLIC_API_URL}/region/${region}`)
+      .then((res) => {
+        setData([])
+        setLoading(true)
+        setTimeout(() => {
+          setLoading(false)
+          setData(res.data)
+        }, 1000)
+      })
+  }
+
   useEffect(() => {
-    if (search) searchByName(search)
+    if (sorting) filterByRegion(sorting)
+    else if (search) searchByName(search)
     else setData(countries)
-  }, [search])
+  }, [sorting, search])
 
   return (
     <Layout>
       <Container maxW="container.xl">
-        <Flex mt={10}>
-          <SearchBar handleSearchChange={handleSearchChange} />
+        <Flex
+          mt={10}
+          justifyContent={{ base: 'inherit', lg: 'space-between' }}
+          flexDirection={{ base: 'column', lg: 'row' }}
+        >
+          <Box w={{ base: 'full', lg: '400px' }} my="2">
+            <SearchBar handleSearchChange={handleSearchChange} />
+          </Box>
+          <Box w={{ base: 'full', lg: '175px' }} my="2">
+            <SearchSorting handleSortingChange={handleSortingChange} />
+          </Box>
         </Flex>
         {loading ? (
-          <Spinner color="red.500" />
+          <PageLoader />
         ) : (
-          <Grid templateColumns="repeat(4, 1fr)" gap={12} mt={10}>
+          <Grid
+            templateColumns={{
+              base: 'repeat(1, 1fr)',
+              md: 'repeat(2, 1fr)',
+              lg: 'repeat(4, 1fr)'
+            }}
+            gap={{ base: 6, md: 9, lg: 12 }}
+            mt={10}
+          >
             {data?.map((item, index) => (
               <Card
                 key={index}
