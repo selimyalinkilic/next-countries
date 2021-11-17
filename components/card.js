@@ -1,16 +1,18 @@
+import { useColorMode } from '@chakra-ui/color-mode'
 import { Image } from '@chakra-ui/image'
 import { Box, Flex, Heading, Text } from '@chakra-ui/layout'
 import Link from 'next/link'
 
 const Card = ({ flag, name, population, region, capital }) => {
+  const { colorMode } = useColorMode()
   return (
     <Box
       boxShadow="base"
       rounded="md"
-      bg="white"
+      bg={colorMode === 'dark' ? 'gray.700' : 'white'}
       _hover={{ boxShadow: '2xl', transition: 'all ease .3s' }}
     >
-      <Link href="/">
+      <Link href={`/country/${name.toLowerCase()}`}>
         <a>
           <Image
             objectFit="cover"
@@ -23,30 +25,30 @@ const Card = ({ flag, name, population, region, capital }) => {
             borderTopRightRadius="md"
           />
           <Flex p={6} flexDirection="column">
-            <Heading as="h2" size="sm" color="gray.800" mb="2">
+            <Heading as="h2" size="sm" colorScheme="gray" mb="2">
               {name}
             </Heading>
             <Flex mt="2">
-              <Text fontWeight="bold" color="gray.800" fontSize="smaller">
+              <Text fontWeight="bold" colorScheme="gray" fontSize="smaller">
                 Population :
               </Text>
-              <Text color="gray.800" fontSize="smaller" ms="2">
+              <Text colorScheme="gray" fontSize="smaller" ms="2">
                 {population.toLocaleString()}
               </Text>
             </Flex>
             <Flex mt="2">
-              <Text fontWeight="bold" color="gray.800" fontSize="smaller">
+              <Text fontWeight="bold" colorScheme="gray" fontSize="smaller">
                 Region :
               </Text>
-              <Text color="gray.800" fontSize="smaller" ms="2">
+              <Text colorScheme="gray" fontSize="smaller" ms="2">
                 {region}
               </Text>
             </Flex>
             <Flex mt="2">
-              <Text fontWeight="bold" color="gray.800" fontSize="smaller">
+              <Text fontWeight="bold" colorScheme="gray" fontSize="smaller">
                 Capital :
               </Text>
-              <Text color="gray.800" fontSize="smaller" ms="2">
+              <Text colorScheme="gray" fontSize="smaller" ms="2">
                 {capital}
               </Text>
             </Flex>
