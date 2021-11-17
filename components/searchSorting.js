@@ -8,9 +8,9 @@ const regions = [
   { id: 5, name: 'Oceania' }
 ]
 
-const SearchSorting = ({ handleFilterChange }) => {
+const SearchSorting = ({ handleSortingChange }) => {
   const handleChange = (e) => {
-    handleFilterChange(e.target.value)
+    handleSortingChange(e.target.value)
   }
   return (
     <Select placeholder="Filter by Region" onChange={handleChange}>
