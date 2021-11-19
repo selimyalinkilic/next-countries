@@ -3,7 +3,7 @@ import { MoonIcon, SunIcon } from '@chakra-ui/icons'
 import { Flex } from '@chakra-ui/layout'
 import { IconButton } from '@chakra-ui/react'
 import { useColorMode } from '@chakra-ui/color-mode'
-
+import Link from 'next/link'
 const Header = () => {
   const { colorMode, toggleColorMode } = useColorMode()
   return (
@@ -14,13 +14,17 @@ const Header = () => {
       alignItems="center"
       px={[4, 8, 16]}
     >
-      <Heading
-        as="h1"
-        fontSize={['xl', '2xl', '3xl', '4xl']}
-        color={colorMode === 'dark' ? 'gray.100' : 'gray.500'}
-      >
-        &#123; Next Countries &#125;
-      </Heading>
+      <Link href="/">
+        <a>
+          <Heading
+            as="h1"
+            fontSize={['xl', '2xl', '3xl', '4xl']}
+            color={colorMode === 'dark' ? 'gray.100' : 'gray.500'}
+          >
+            &#123; Next Countries &#125;
+          </Heading>
+        </a>
+      </Link>
       <IconButton
         bg="transparent"
         color={colorMode === 'dark' ? 'gray.100' : 'gray.500'}
