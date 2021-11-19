@@ -3,7 +3,7 @@ import { Image } from '@chakra-ui/image'
 import { Box, Flex, Heading, Text } from '@chakra-ui/layout'
 import Link from 'next/link'
 
-const Card = ({ flag, name, population, region, capital }) => {
+const Card = ({ flag, name, population, region, capital, alpha2Code }) => {
   const { colorMode } = useColorMode()
   return (
     <Box
@@ -12,7 +12,7 @@ const Card = ({ flag, name, population, region, capital }) => {
       bg={colorMode === 'dark' ? 'gray.700' : 'white'}
       _hover={{ boxShadow: '2xl', transition: 'all ease .3s' }}
     >
-      <Link href={`/country/${name.toLowerCase()}`}>
+      <Link href={`/country/${alpha2Code}`}>
         <a>
           <Image
             objectFit="cover"

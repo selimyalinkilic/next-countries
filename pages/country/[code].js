@@ -106,24 +106,25 @@ const Detail = ({ country }) => {
 export const getStaticPaths = async () => {
   const all = Country.all()
 
-  const res = await Promise.all([all])
+  let res = await Promise.all([all])
+  res = res[0].data.slice(0, 5)
   return {
-    paths: res[0].data.map((item) => {
-      return { params: { name: `${item.name.toLowerCase()}` } }
+    paths: res.map((item) => {
+      return { params: { code: `${item.alpha2Code}` } }
     }),
-    fallback: false
+    fallback: true
   }
 }
 
 export const getStaticProps = async ({ params }) => {
   // data fetch
-  const getByName = Country.getByName(params.name)
+  const getByAlpha = Country.getByAlpha(params.code)
 
-  const res = await Promise.all([getByName])
+  const res = await Promise.all([getByAlpha])
 
   return {
     props: {
-      country: res[0].data[0]
+      country: res[0].data
     }
   }
 }
