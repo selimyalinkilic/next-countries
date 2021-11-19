@@ -92,7 +92,8 @@ const Detail = ({ country }) => {
               </Box>
               <Box>
                 <Text>
-                  <strong>Currencies : </strong> {country.currencies[0].name}
+                  <strong>Currencies : </strong>{' '}
+                  {country.currencies ? country.currencies[0].name : '-'}
                 </Text>
               </Box>
             </Grid>
@@ -106,25 +107,29 @@ const Detail = ({ country }) => {
 export const getStaticPaths = async () => {
   const all = Country.all()
 
-  let res = await Promise.all([all])
-  res = res[0].data.slice(0, 5)
+  const res = await Promise.all([all])
   return {
-    paths: res.map((item) => {
+    paths: res[0].data.map((item) => {
       return { params: { slug: `${item.alpha2Code}` } }
     }),
-    fallback: true
+    fallback: false
   }
 }
 
 export const getStaticProps = async ({ params }) => {
   // data fetch
-  const getByAlpha = Country.getByAlpha(params.code)
+  const getByAlpha = Country.getByAlpha(params.slug)
 
-  const res = await Promise.all([getByAlpha])
-
+  const result = await Promise.all([getByAlpha])
+  const data = result[0].data
+  if (!data) {
+    return {
+      notFound: true
+    }
+  }
   return {
     props: {
-      country: res[0].data
+      country: data
     }
   }
 }
