@@ -2,6 +2,8 @@
 
 Next Countries is an application made by using [rest countries api](http://restcountries.com/).
 
+**[DEMO](http://next-countries-tawny.vercel.app)**
+
 ## Quick start
 
 1. **Clone Repo**
@@ -14,24 +16,24 @@ Next Countries is an application made by using [rest countries api](http://restc
 
 2. **Start Developing**
 
-   Navigate into your new site’s directory and start it up.
+Navigate into your new site’s directory and start it up.
 
 ```bash
 
-   # go inside the project you copied
-   cd next-countries
+  # go inside the project you copied
+  cd next-countries
 
-   # create .env.local file
-   touch .env.local
+  # create .env.local file
+  touch .env.local
 
-   # add NEXT_PUBLIC_API_URL variable to .env.local file
-   NEXT_PUBLIC_API_URL=https://restcountries.com/v2
+  # add NEXT_PUBLIC_API_URL variable to .env.local file
+  NEXT_PUBLIC_API_URL=https://restcountries.com/v2
 
-   # install packages
-   yarn install / npm install
+  # install packages
+  yarn install / npm install
 
-   # run the project
-   yarn dev / npm run dev
+  # run the project
+  yarn dev / npm run dev
 
 ```
 
