@@ -18,20 +18,20 @@ Next Countries is an application made by using [rest countries api](http://restc
 
 ```bash
 
-    # go inside the project you copied
-    cd next-countries
+   # go inside the project you copied
+   cd next-countries
 
-    # create .env.local file
-    touch .env.local
+   # create .env.local file
+   touch .env.local
 
-    # add NEXT_PUBLIC_API_URL variable to .env.local file
-    NEXT_PUBLIC_API_URL=https://restcountries.com/v2
+   # add NEXT_PUBLIC_API_URL variable to .env.local file
+   NEXT_PUBLIC_API_URL=https://restcountries.com/v2
 
-    # install packages
-    yarn install / npm install
+   # install packages
+   yarn install / npm install
 
-    # run the project
-    yarn dev / npm run dev
+   # run the project
+   yarn dev / npm run dev
 
 ```
 
