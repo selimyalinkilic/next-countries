@@ -1,16 +1,25 @@
-import { useColorMode } from '@chakra-ui/color-mode'
-import { Flex } from '@chakra-ui/layout'
-import { Spinner } from '@chakra-ui/spinner'
-
+import { Grid } from '@chakra-ui/layout'
+import SkeletonLoader from './skeletonLoader'
 const PageLoader = () => {
-  const { colorMode } = useColorMode()
   return (
-    <Flex justifyContent="center" my="10">
-      <Spinner
-        color={colorMode === 'dark' ? 'gray.100' : 'gray.500'}
-        size="lg"
-      />
-    </Flex>
+    <Grid
+      templateColumns={{
+        base: 'repeat(1, 1fr)',
+        md: 'repeat(2, 1fr)',
+        lg: 'repeat(4, 1fr)'
+      }}
+      gap={{ base: 6, md: 9, lg: 12 }}
+      my={10}
+    >
+      <SkeletonLoader />
+      <SkeletonLoader />
+      <SkeletonLoader />
+      <SkeletonLoader />
+      <SkeletonLoader />
+      <SkeletonLoader />
+      <SkeletonLoader />
+      <SkeletonLoader />
+    </Grid>
   )
 }
 
