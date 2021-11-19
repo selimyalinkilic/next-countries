@@ -8,33 +8,38 @@ import SearchBar from '../components/searchBar'
 import SearchSorting from '../components/searchSorting'
 import Country from '../model/country'
 import Head from 'next/head'
+import PageMessage from '../components/pageMessage'
 
 const Home = ({ countries }) => {
-  const [search, setSearch] = useState('')
   const [sorting, setSorting] = useState('')
+  const [message, setMessage] = useState(false)
   const [data, setData] = useState([])
   const [loading, setLoading] = useState(false)
 
   const handleSearchChange = (val) => {
-    if (val.length >= 3) setSearch(val)
-    else {
-      setSearch('')
+    if (val.length >= 3) {
+      setLoading(true)
+      if (val) {
+        setTimeout(() => {
+          let searchResults = countries.filter((item) =>
+            item.name.toLowerCase().includes(val)
+          )
+          setData(searchResults)
+          setLoading(false)
+          if (searchResults.length <= 0) {
+            setMessage(true)
+          } else {
+            setMessage(false)
+          }
+        }, 500)
+      }
+    } else {
       setData(countries)
     }
   }
 
   const handleSortingChange = (val) => {
     setSorting(val)
-  }
-
-  const searchByName = async (val) => {
-    setLoading(true)
-    return await axios
-      .get(`${process.env.NEXT_PUBLIC_API_URL}/name/${val}`)
-      .then((res) => {
-        setLoading(false)
-        setData(res.data)
-      })
   }
 
   const filterByRegion = async (region) => {
@@ -49,16 +54,15 @@ const Home = ({ countries }) => {
   }
 
   useEffect(() => {
-    if (!data && !sorting && !search && !countries) {
+    if (!data && !sorting && !countries) {
       setLoading(true)
     } else {
       setLoading(false)
     }
 
     if (sorting) filterByRegion(sorting)
-    else if (search) searchByName(search)
     else setData(countries)
-  }, [sorting, search])
+  }, [sorting])
 
   return (
     <Layout>
@@ -104,6 +108,11 @@ const Home = ({ countries }) => {
                 />
               ))}
           </Grid>
+        )}
+        {message && loading != true ? (
+          <PageMessage>Countries & Country Not Found!</PageMessage>
+        ) : (
+          ''
         )}
       </Container>
     </Layout>

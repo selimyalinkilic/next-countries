@@ -2,7 +2,7 @@ import { SearchIcon } from '@chakra-ui/icons'
 import { Input, InputGroup, InputLeftElement } from '@chakra-ui/input'
 import { useState } from 'react'
 
-const SearchBar = ({ handleSearchChange, val }) => {
+const SearchBar = ({ handleSearchChange }) => {
   const [query, setQuery] = useState('')
   const handleChange = (e) => {
     handleSearchChange(e.target.value)
@@ -18,7 +18,7 @@ const SearchBar = ({ handleSearchChange, val }) => {
         type="text"
         placeholder="Search for a country"
         onChange={handleChange}
-        value={query || val}
+        value={query}
       />
     </InputGroup>
   )
