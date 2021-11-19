@@ -27,31 +27,33 @@ const Home = ({ countries }) => {
   }
 
   const searchByName = async (val) => {
+    setLoading(true)
     return await axios
       .get(`${process.env.NEXT_PUBLIC_API_URL}/name/${val}`)
       .then((res) => {
-        setLoading(true)
-        setTimeout(() => {
-          setLoading(false)
-          setData(res.data)
-        }, 1000)
+        setLoading(false)
+        setData(res.data)
       })
   }
 
   const filterByRegion = async (region) => {
+    setLoading(true)
+    setData([])
     return await axios
       .get(`${process.env.NEXT_PUBLIC_API_URL}/region/${region}`)
       .then((res) => {
-        setData([])
-        setLoading(true)
-        setTimeout(() => {
-          setLoading(false)
-          setData(res.data)
-        }, 1000)
+        setLoading(false)
+        setData(res.data)
       })
   }
 
   useEffect(() => {
+    if (!data && !sorting && !search && !countries) {
+      setLoading(true)
+    } else {
+      setLoading(false)
+    }
+
     if (sorting) filterByRegion(sorting)
     else if (search) searchByName(search)
     else setData(countries)
@@ -82,18 +84,21 @@ const Home = ({ countries }) => {
               lg: 'repeat(4, 1fr)'
             }}
             gap={{ base: 6, md: 9, lg: 12 }}
-            mt={10}
+            my={10}
           >
-            {data?.map((item, index) => (
-              <Card
-                key={index}
-                flag={item.flags.png}
-                name={item.name}
-                population={item.population}
-                region={item.region}
-                capital={item.capital}
-              />
-            ))}
+            {data
+              ?.filter((item) => item.alpha2Code !== null)
+              .map((item, index) => (
+                <Card
+                  key={index}
+                  flag={item.flags.png}
+                  name={item.name}
+                  population={item.population}
+                  region={item.region}
+                  capital={item.capital}
+                  alpha2Code={item.alpha2Code}
+                />
+              ))}
           </Grid>
         )}
       </Container>
@@ -104,13 +109,13 @@ const Home = ({ countries }) => {
 export const getStaticProps = async () => {
   const all = Country.all()
 
-  const response = await Promise.all([all])
+  let response = await Promise.all([all])
 
   return {
     props: {
       countries: response[0].data
     },
-    revalidate: 1000
+    revalidate: 1
   }
 }
 
