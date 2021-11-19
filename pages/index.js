@@ -7,6 +7,7 @@ import PageLoader from '../components/pageLoader'
 import SearchBar from '../components/searchBar'
 import SearchSorting from '../components/searchSorting'
 import Country from '../model/country'
+import Head from 'next/head'
 
 const Home = ({ countries }) => {
   const [search, setSearch] = useState('')
@@ -61,6 +62,9 @@ const Home = ({ countries }) => {
 
   return (
     <Layout>
+      <Head>
+        <title>Next Countries</title>
+      </Head>
       <Container maxW="container.xl">
         <Flex
           mt={10}
