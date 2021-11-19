@@ -110,7 +110,7 @@ export const getStaticPaths = async () => {
   res = res[0].data.slice(0, 5)
   return {
     paths: res.map((item) => {
-      return { params: { code: `${item.alpha2Code}` } }
+      return { params: { slug: `${item.alpha2Code}` } }
     }),
     fallback: true
   }
