@@ -6,12 +6,16 @@ import Layout from '../../components/layout'
 import Country from '../../model/country'
 import { useRouter } from 'next/router'
 import { useColorMode } from '@chakra-ui/color-mode'
+import Head from 'next/head'
 
 const Detail = ({ country }) => {
   const router = useRouter()
   const { colorMode } = useColorMode()
   return (
     <Layout>
+      <Head>
+        <title>Next Countries{country.name ? ` | ${country.name}` : ''} </title>
+      </Head>
       <Container maxW="container.xl">
         <Flex mt={10}>
           <Button
