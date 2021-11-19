@@ -5,8 +5,8 @@ class Country {
   static async all() {
     return await instance.get(`${path}/all`)
   }
-  static async getByName(name) {
-    return await instance.get(`${path}/name/${name}`)
+  static async getByAlpha(code) {
+    return await instance.get(`${path}/alpha/${code}`)
   }
 }
 
