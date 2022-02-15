@@ -2,7 +2,7 @@
 
 Next Countries is an application made by using [rest countries api](http://restcountries.com/).
 
-**[DEMO](http://next-countries-tawny.vercel.app)**
+**[DEMO](https://countries.selimyalinkilic.com)**
 
 ## Quick start
 
